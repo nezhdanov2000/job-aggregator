@@ -28,7 +28,7 @@ options.add_argument("--disable-infobars")
 options.add_argument("--disable-web-security")
 options.add_argument("--disable-blink-features=AutomationControlled")
 
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
 url = 'https://vc.ru/job'
 parse_datetime = datetime.now()
