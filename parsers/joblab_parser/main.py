@@ -271,18 +271,3 @@ try:
                             
 except Exception as e:
     print(e)
-
-
-# Promise.reject('a')
-# .catch(p=>p+'b')
-# .catch(p=>p+'c')
-# .then(p=>p+'d')
-# .finally(p=>p+'e')
-# .then(p=>console.log(p))
-
-let obj = {
-    '0':1,
-    0:2
-}
-
-console.log(obj['0'] + obj[0])
