@@ -147,17 +147,6 @@ def generate_data_arr_of_dicts(dict_names_types, arr_length):
     return fake_arr_of_dicts
 
 
-# def split_vacancies_skills(data_arr_of_dicts):
-#     vacancies_arr = []
-#     for vacancy in data_arr_of_dicts:
-#         for skill in vacancy['vacancy_skills']:
-#             row = {**vacancy}
-#             row['vacancy_skills'] = ', '.join(row['vacancy_skills'])
-#             row['vacancy_skill'] = skill
-#             vacancies_arr.append(row)
-
-#     return vacancies_arr
-
 def split_vacancies_skills(data_arr_of_dicts):
     vacancies_arr = []
     for vacancy in data_arr_of_dicts:
@@ -169,7 +158,7 @@ def split_vacancies_skills(data_arr_of_dicts):
 
 
 df = pd.DataFrame(split_vacancies_skills(
-    generate_data_arr_of_dicts(dict_names_types, 50)))
+    generate_data_arr_of_dicts(dict_names_types, 100000)))
 
-# df = pd.DataFrame(generate_data_arr_of_dicts(dict_names_types, 50))
-df.to_csv(f'./fake_data.csv', sep=';', encoding='utf-8-sig')
+df.to_csv(f'./airflow/raw_data/vacancies/fake_data.csv',
+          sep=';', encoding='utf-8-sig')
