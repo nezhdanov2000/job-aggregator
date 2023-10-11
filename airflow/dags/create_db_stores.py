@@ -39,7 +39,6 @@ with DAG(
         except:
             pass
         finally:
-            print(schema_names)
             return schema_names
 
     get_db_schemas_names = PythonOperator(
@@ -91,8 +90,9 @@ with DAG(
             vacancy_schedule varchar,
             vacancy_education varchar,
             vacancy_placement date,
+            vacancy_city varchar,
             vacancy_skills varchar,
-            vacancy_skill varchar
+            primary KEY(vacancy_id)
           );
         """
         )
@@ -201,9 +201,9 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.sources (
-              source_name varchar,
+              source_id serial,
+              source_name varchar UNIQUE,
               source_href varchar,
-              source_id integer,
               PRIMARY KEY(source_id)
             );
           """
@@ -232,8 +232,8 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.names (
-              vacancy_name varchar,
-              vacancy_name_id integer,
+              vacancy_name_id serial,
+              vacancy_name varchar UNIQUE,
               PRIMARY KEY(vacancy_name_id)
             );
           """
@@ -262,8 +262,8 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.categories (
-              vacancy_category varchar,
-              vacancy_category_id integer,
+              vacancy_category varchar UNIQUE,
+              vacancy_category_id serial,
               PRIMARY KEY(vacancy_category_id)
             );
           """
@@ -292,8 +292,8 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.experiences (
-              vacancy_experience varchar,
-              vacancy_experience_id integer,
+              vacancy_experience varchar UNIQUE,
+              vacancy_experience_id serial,
               PRIMARY KEY(vacancy_experience_id)
             );
           """
@@ -322,8 +322,8 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.employers (
-              vacancy_employer varchar,
-              vacancy_employer_id integer,
+              vacancy_employer varchar UNIQUE,
+              vacancy_employer_id serial,
               PRIMARY KEY(vacancy_employer_id)
             );
           """
@@ -352,8 +352,8 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.schedules (
-              vacancy_schedule varchar,
-              vacancy_schedule_id integer,
+              vacancy_schedule varchar UNIQUE,
+              vacancy_schedule_id serial,
               PRIMARY KEY(vacancy_schedule_id)
             );
           """
@@ -382,8 +382,8 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.educations (
-              vacancy_education varchar,
-              vacancy_education_id integer,
+              vacancy_education varchar UNIQUE,
+              vacancy_education_id serial,
               PRIMARY KEY(vacancy_education_id)
             );
           """
@@ -412,8 +412,8 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.placements (
-              vacancy_placement date,
-              vacancy_placement_id integer,
+              vacancy_placement date UNIQUE,
+              vacancy_placement_id serial,
               PRIMARY KEY(vacancy_placement_id)
             );
           """
@@ -435,6 +435,36 @@ with DAG(
           """
         )
 
+        create_core_store_cities = PostgresOperator(
+            task_id='create_core_store_cities',
+            postgres_conn_id='connection_vacancies_db',
+            autocommit=True,
+            database='vacancies_db',
+            sql=f"""
+            create table if not exists core_store.cities (
+              vacancy_city varchar UNIQUE,
+              vacancy_city_id serial,
+              PRIMARY KEY(vacancy_city_id)
+            );
+          """
+        )
+
+        create_core_store_vacancies_cities = PostgresOperator(
+            task_id='create_core_store_vacancies_cities',
+            postgres_conn_id='connection_vacancies_db',
+            autocommit=True,
+            database='vacancies_db',
+            sql=f"""
+            create table if not exists core_store.vacancies_cities (
+              vacancy_id varchar,
+              vacancy_city_id integer,
+              PRIMARY KEY(vacancy_id),
+              FOREIGN KEY (vacancy_id) REFERENCES core_store.vacancies ON DELETE SET null,
+              FOREIGN KEY (vacancy_city_id) REFERENCES core_store.cities ON DELETE SET null
+            );
+          """
+        )
+
         create_core_store_skills = PostgresOperator(
             task_id='create_core_store_skills',
             postgres_conn_id='connection_vacancies_db',
@@ -442,8 +472,8 @@ with DAG(
             database='vacancies_db',
             sql=f"""
             create table if not exists core_store.skills (
-              vacancy_skills varchar,
-              vacancy_skills_id integer,
+              vacancy_skills varchar UNIQUE,
+              vacancy_skills_id serial,
               PRIMARY KEY(vacancy_skills_id)
             );
           """
@@ -473,7 +503,7 @@ with DAG(
             sql=f"""
             create table if not exists core_store.skills_ids (
               skill_id serial,
-              skill_name integer UNIQUE,
+              skill_name varchar UNIQUE,
               PRIMARY KEY(skill_id)
             );
           """
@@ -493,6 +523,7 @@ with DAG(
             create_core_store_schedules >> create_core_store_vacancies_schedules >> \
             create_core_store_educations >> create_core_store_vacancies_educations >> \
             create_core_store_placements >> create_core_store_vacancies_placements >> \
+            create_core_store_cities >> create_core_store_vacancies_cities >> \
             create_core_store_skills >> create_core_store_vacancies_skills >> \
             create_core_store_skills_ids >> \
             task_group_end
@@ -509,24 +540,24 @@ with DAG(
         task_id='branch_create_raw_store',
         python_callable=check_schema_in_db,
         op_kwargs={'schema_name': 'raw_store'},
-        trigger_rule="one_success",
+        trigger_rule="all_success",
     )
 
     branch_create_core_store = BranchPythonOperator(
         task_id='branch_create_core_store',
         python_callable=check_schema_in_db,
         op_kwargs={'schema_name': 'core_store'},
-        trigger_rule="one_success",
+        trigger_rule="all_success",
     )
 
     raw_store_done = EmptyOperator(
         task_id='raw_store_done',
-        trigger_rule="one_success"
+        trigger_rule="all_success"
     )
 
     core_store_done = EmptyOperator(
         task_id='core_store_done',
-        trigger_rule="one_success"
+        trigger_rule="all_success"
     )
 
     get_db_schemas >> get_db_schemas_names

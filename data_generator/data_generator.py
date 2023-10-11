@@ -72,6 +72,9 @@ dict_names_types = {
         'array': ['Высшее', 'Среднее специальное', 'Не оконченное высшее', 'Не указано']
     },
     'vacancy_placement': {
+        'type': 'date'
+    },
+    'vacancy_city': {
         'type': 'city'
     },
     'vacancy_skills': {
@@ -94,11 +97,15 @@ def return_random_date():
 
 
 def return_random_paragraph(length):
-    return fake.paragraph(nb_sentences=length)
+    return fake.paragraph(nb_sentences=length).replace("'", "`")
 
 
 def return_random_company():
-    return fake.large_company()
+    return fake.large_company().replace("'", "`")
+
+
+def return_random_city():
+    return fake.city_name()
 
 
 def generate_data_arr_of_dicts(dict_names_types, arr_length):
@@ -132,23 +139,37 @@ def generate_data_arr_of_dicts(dict_names_types, arr_length):
                 row[key] = random.sample(
                     value['array'], random.randint(1, len(value['array'])))
                 continue
+            if value['type'] == 'city':
+                row[key] = return_random_city()
+                continue
         fake_arr_of_dicts.append(row)
 
     return fake_arr_of_dicts
 
 
+# def split_vacancies_skills(data_arr_of_dicts):
+#     vacancies_arr = []
+#     for vacancy in data_arr_of_dicts:
+#         for skill in vacancy['vacancy_skills']:
+#             row = {**vacancy}
+#             row['vacancy_skills'] = ', '.join(row['vacancy_skills'])
+#             row['vacancy_skill'] = skill
+#             vacancies_arr.append(row)
+
+#     return vacancies_arr
+
 def split_vacancies_skills(data_arr_of_dicts):
     vacancies_arr = []
     for vacancy in data_arr_of_dicts:
-        for skill in vacancy['vacancy_skills']:
-            row = {**vacancy}
-            row['vacancy_skills'] = ', '.join(row['vacancy_skills'])
-            row['vacancy_skill'] = skill
-            vacancies_arr.append(row)
+        row = {**vacancy}
+        row['vacancy_skills'] = ', '.join(row['vacancy_skills'])
+        vacancies_arr.append(row)
 
     return vacancies_arr
 
 
 df = pd.DataFrame(split_vacancies_skills(
     generate_data_arr_of_dicts(dict_names_types, 50)))
+
+# df = pd.DataFrame(generate_data_arr_of_dicts(dict_names_types, 50))
 df.to_csv(f'./fake_data.csv', sep=';', encoding='utf-8-sig')
