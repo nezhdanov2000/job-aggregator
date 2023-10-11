@@ -10,16 +10,21 @@ Airflow DAGS:
 `create_db_store` - создание сущностей в БД `DONE`  
 `load_data_to_db` - загрузка данных в БД `DONE`  
 В процессе:  
+Переписать парсеры  
 Даги для парсеров  
-Даг для запуска модели, очистки\обогащение данных
+Даг для запуска модели, очистки\обогащение данных  
+Написать бэк для запросов к БД
 
-Схема БД:
-![raw_store](./docs/ERDDiagram1.png)
-
-Оптимизация:
+Оптимизация:  
 Пример запроса вакансий, отфильтрованных по 6 навыкам(скиллам) из 100k записей.
 С разделением навыков по отдельным сущностям в БД позволяет выполнить запрос за 1.3с.
-С применением индексации запрос выполняется за 0.4с
+С применением индексации запрос выполняется за 0.4с  
+Сгенерировать данные для теста можно с помощь `data_generator/data_generator.py`  
+100k записей будут загружаться в БД ~30мин.  
+
+Очередность записи Дагов:  
+1) `create_db_store`  
+2) `load_data_to_db`
 ```sql
 select
 	core_store.vacancies.vacancy_id,
@@ -106,3 +111,6 @@ create UNIQUE index vacancies_sources_idx on core_store.vacancies_sources (vacan
 create UNIQUE index vacancies_views_idx on core_store.vacancies_views (vacancy_id)
 ```  
 Время выполнения 0.4с
+
+Схема БД:
+![raw_store](./docs/ERDDiagram1.png)
