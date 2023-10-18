@@ -1,0 +1,51 @@
+2023-10-18 13:38:14,362 - WDM - INFO - ====== WebDriver manager ======
+2023-10-18 13:38:17,356 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2023-10-18 13:38:17,746 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2023-10-18 13:38:18,106 - WDM - INFO - Driver [C:\Users\nezhd\.wdm\drivers\chromedriver\win64\118.0.5993.70\chromedriver-win32/chromedriver.exe] found in cache
+2023-10-18 13:38:27,580 - root - INFO - parsed: page 1
+2023-10-18 13:39:09,605 - root - ERROR - Information about requirements not found: https://joblab.ru/vac11173271.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:39:16,144 - root - ERROR - Information about requirements not found: https://joblab.ru/vac10113828.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:40:06,063 - root - ERROR - Information about requirements not found: https://joblab.ru/vac11167691.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:40:08,647 - root - ERROR - Information about responsibilities not found: https://joblab.ru/vac10556952.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:40:08,648 - root - ERROR - Information about requirements not found: https://joblab.ru/vac10556952.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:40:11,248 - root - ERROR - Information about responsibilities not found: https://joblab.ru/vac1700514.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:40:11,249 - root - ERROR - Information about requirements not found: https://joblab.ru/vac1700514.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:40:28,294 - root - INFO - Parsing done
+2023-10-18 13:40:28,294 - root - INFO - Job_title was successfully extracted without any code changes.
+2023-10-18 13:40:28,294 - root - INFO - Employer was successfully extracted without any code changes.
+2023-10-18 13:40:28,294 - root - INFO - City was successfully extracted without any code changes.
+2023-10-18 13:40:28,294 - root - INFO - Salary was successfully extracted without any code changes.
+2023-10-18 13:40:28,294 - root - INFO - Schedule was successfully extracted without any code changes.
+2023-10-18 13:40:28,295 - root - INFO - Conditions was successfully extracted without any code changes.
+2023-10-18 13:40:28,295 - root - INFO - Responsibilities was successfully extracted without any code changes.
+2023-10-18 13:40:28,295 - root - INFO - Education was successfully extracted without any code changes.
+2023-10-18 13:40:28,295 - root - INFO - Experience was successfully extracted without any code changes.
+2023-10-18 13:40:28,295 - root - INFO - Requirements was successfully extracted without any code changes.
+2023-10-18 13:40:28,295 - root - INFO - Placement was successfully extracted without any code changes.
+2023-10-18 13:40:28,295 - root - INFO - Job_views_value was successfully extracted without any code changes.
+2023-10-18 13:49:39,752 - WDM - INFO - ====== WebDriver manager ======
+2023-10-18 13:49:42,871 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2023-10-18 13:49:43,320 - WDM - INFO - Get LATEST chromedriver version for google-chrome
+2023-10-18 13:49:43,687 - WDM - INFO - Driver [C:\Users\nezhd\.wdm\drivers\chromedriver\win64\118.0.5993.70\chromedriver-win32/chromedriver.exe] found in cache
+2023-10-18 13:49:54,524 - root - INFO - parsed: page 1
+2023-10-18 13:49:59,911 - root - ERROR - Information about conditions not found: https://joblab.ru/vac5745082.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:50:49,214 - root - ERROR - Information about requirements not found: https://joblab.ru/vac11173271.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:50:56,493 - root - ERROR - Information about requirements not found: https://joblab.ru/vac10113828.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:51:51,601 - root - ERROR - Information about requirements not found: https://joblab.ru/vac11167691.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:51:54,468 - root - ERROR - Information about responsibilities not found: https://joblab.ru/vac10556952.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:51:54,470 - root - ERROR - Information about requirements not found: https://joblab.ru/vac10556952.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:51:57,406 - root - ERROR - Information about responsibilities not found: https://joblab.ru/vac1700514.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:51:57,407 - root - ERROR - Information about requirements not found: https://joblab.ru/vac1700514.html. Error details: 'NoneType' object has no attribute 'parent'
+2023-10-18 13:52:07,423 - root - INFO - Parsing done
+2023-10-18 13:52:07,423 - root - INFO - Job_title was successfully extracted without any code changes.
+2023-10-18 13:52:07,423 - root - INFO - Employer was successfully extracted without any code changes.
+2023-10-18 13:52:07,423 - root - INFO - City was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Salary was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Schedule was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Conditions was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Responsibilities was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Education was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Experience was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Requirements was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Placement was successfully extracted without any code changes.
+2023-10-18 13:52:07,424 - root - INFO - Job_views_value was successfully extracted without any code changes.
